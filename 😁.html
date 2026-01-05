@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Un mensaje para ti 💖</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: radial-gradient(circle at top, #ff9a9e, #fad0c4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .card {
+            position: relative;
+            z-index: 2;
+            background: rgba(255, 255, 255, 0.95);
+            max-width: 420px;
+            width: 100%;
+            padding: 30px 25px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            text-align: center;
+            animation: fadeIn 1.2s ease;
+        }
+
+        h1 {
+            color: #ff5f7e;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        p {
+            color: #444;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        .message {
+            background: #fff5f7;
+            border-radius: 15px;
+            padding: 15px;
+            min-height: 60px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ff5f7e;
+            font-weight: 500;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #ff5f7e, #ff8fa3);
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(255, 95, 126, 0.4);
+        }
+
+        .heart {
+            font-size: 1.5rem;
+            animation: pulse 1.5s infinite;
+            margin-bottom: 10px;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .background span {
+            position: absolute;
+            bottom: -50px;
+            font-size: 1.5rem;
+            animation: floatUp 12s linear infinite;
+            opacity: 0.6;
+        }
+
+        .background span:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .background span:nth-child(2) { left: 20%; animation-delay: 2s; }
+        .background span:nth-child(3) { left: 30%; animation-delay: 4s; }
+        .background span:nth-child(4) { left: 40%; animation-delay: 6s; }
+        .background span:nth-child(5) { left: 50%; animation-delay: 1s; }
+        .background span:nth-child(6) { left: 60%; animation-delay: 3s; }
+        .background span:nth-child(7) { left: 70%; animation-delay: 5s; }
+        .background span:nth-child(8) { left: 80%; animation-delay: 7s; }
+        .background span:nth-child(9) { left: 90%; animation-delay: 2s; }
+        .background span:nth-child(10){ left: 95%; animation-delay: 4s; }
+
+        @keyframes floatUp {
+            from { transform: translateY(0); opacity: 0; }
+            10% { opacity: 0.6; }
+            to { transform: translateY(-110vh); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background">
+        <span>💗</span><span>💛</span><span>💚</span><span>🌸</span><span>💞</span>
+        <span>💛</span><span>💗</span><span>🌸</span><span>💚</span><span>💞</span>
+    </div>
+
+    <div class="card">
+        <audio id="music" loop>
+            <source src="piano.mp3" type="audio/mpeg">
+        </audio>
+
+        <div class="heart">💗</div>
+        <h1>Tranquila princesa</h1>
+        <p>Esta página es solo para recordarte algo importante, siempre te apoyaré ✨</p>
+
+        <div class="message" id="message">
+            Presiona el botón 👇
+        </div>
+
+        <button onclick="playMusic(); newMessage()">Dame un mensaje bonito</button>
+    </div>
+
+    <script>
+        const music = document.getElementById("music");
+        music.volume = 0.35;
+
+        const messages = [
+            "Aun cuando dudas, para mí siempre eres extraordinaria 🏰",
+            "Tu sonrisa puede cambiar un día entero 😊",
+            "Siempre estaré para ti, no importa qué 💞",
+            "Hoy también estás haciendo lo mejor que puedes 🌷",
+            "Eres más fuerte de lo que crees, como una verdadera Gryffindor 🦁",
+            "No necesito una varita para saber que contigo todo es real ✨",
+            "La magia más poderosa vive dentro de ti 💖",
+            "Está bien cansarse, no está mal descansar 🌸",
+            "Tus pequeños logros también son grandes victorias 🌟"
+        ];
+
+        function playMusic() {
+            if (music.paused) {
+                music.play().catch(() => {});
+            }
+        }
+
+        function newMessage() {
+            const random = Math.floor(Math.random() * messages.length);
+            document.getElementById("message").textContent = messages[random];
+        }
+    </script>
+
+</body>
+</html>
